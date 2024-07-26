@@ -1,0 +1,46 @@
+<div class="card">
+    <div class="card-header">
+       <b>Consulte os seus Clientes cadastrados na sua Loja ou realize o cadastro de novos
+        Cliente</b>
+        <button class="btn btn-success">Adicionar Cliente</button>
+        <button class="btn btn-primary" 
+                data-bs-toggle="collapse" 
+                href="#collapseExample" 
+                role="button" 
+                aria-expanded="false" 
+                aria-controls="collapseExample">
+            Filtrar
+        </button>
+        <div class="collapse" id="collapseExample">
+            <input class="form-control" type="text" placeholder="Filtrar">
+        </div>
+    </div>
+    <div class="card-body justify-content-center">
+        <table>
+            <thead>
+                <tr>
+                    <th>Checkbox</th>
+                    <th>Nome/Razão Social</th>
+                    <th>E-mail</th>
+                    <th>Telefone</th>
+                    <th>Data Cadastro</th>
+                    <th>Bloqueado</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (cliente of clientes; track $index) {
+                    <tr>
+                        <td><input type="checkbox"></td>
+                        <td> {{ cliente.nome }} </td>
+                        <td>{{ cliente.email }}</td>
+                        <td>{{ cliente.telefone }}</td>
+                        <td>{{ cliente.nome }}</td>
+                        <td><input type="checkbox"></td>
+                        <td><button class="btn btn-primary"><i class="bi bi-gear"></i></button></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
