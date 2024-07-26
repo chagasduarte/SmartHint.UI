@@ -3,6 +3,7 @@ import DataTable from 'datatables.net-dt';
 import { Cliente } from '../../models/cliente';
 import { IClienteServce } from '../../interfaces/IClienteService';
 import { ClienteService } from '../../services/cliente.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-compradores',
@@ -12,11 +13,13 @@ import { ClienteService } from '../../services/cliente.service';
   styleUrl: './compradores.component.css'
 })
 export class CompradoresComponent implements OnInit{
-[x: string]: any;
-  
+ 
   clientes!: Cliente[];
   
-  constructor(private readonly clienteService: ClienteService){}
+  constructor(
+    private readonly clienteService: ClienteService,
+    private readonly router: Router
+  ){}
   
   ngOnInit(): void {
     this.clienteService.getCliente().subscribe({
@@ -26,6 +29,8 @@ export class CompradoresComponent implements OnInit{
     });
   }
 
-
+  edicao(cli: Cliente){
+    this.router.navigate(["edicao"], { queryParams: cli  as Cliente});
+  }
   
 }

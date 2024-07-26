@@ -35,9 +35,9 @@
                         <td> {{ cliente.nome }} </td>
                         <td>{{ cliente.email }}</td>
                         <td>{{ cliente.telefone }}</td>
-                        <td>{{ cliente.nome }}</td>
+                        <td>{{ cliente.dataCadastro }}</td>
                         <td><input type="checkbox"></td>
-                        <td><button class="btn btn-primary"><i class="bi bi-gear"></i></button></td>
+                        <td><button class="btn btn-primary" (click)="edicao(cliente)" ><i class="bi bi-gear"></i></button></td>
                     </tr>
                 }
             </tbody>

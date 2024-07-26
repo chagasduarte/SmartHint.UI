@@ -6,4 +6,5 @@ export interface Cliente {
     tipoPessoa: number
     cpfCnpj: string
     inscricaoEstadual: string
+    dataCadastro: Date
 }
