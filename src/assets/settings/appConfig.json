@@ -1,5 +1,5 @@
 {
     "appConfig":{
-        "WebApi": "https://localhost:32777/api"
+        "WebApi": "https://localhost:32781/api"
     }
 }

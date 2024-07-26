@@ -8,5 +8,8 @@ import { Component } from '@angular/core';
   styleUrl: './cadastro.component.css'
 })
 export class CadastroComponent {
+  
+    cadastrar(){
 
+    }
 }

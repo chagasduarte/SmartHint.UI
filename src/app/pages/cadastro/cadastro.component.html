@@ -1,1 +1,45 @@
-<p>cadastro works!</p>
+<div class="container">
+    <form class="form-control form-control-sm" action="/">
+        <div class="mb-3">
+            <b>Principal</b>
+        </div>
+        <section class="area-principal mb-3">
+            <div>
+              <label for="nomerazaosocial">Nome do Cliente/Razão Social:</label>
+              <input id="nomerazaosocial" type="text" class="form-control form-control-sm"/>
+            </div>
+            <div>
+                <label for="email">E-mail:</label>
+                <input id="email" type="text" class="form-control form-control-sm"/>
+            </div>
+            <div>
+                <label for="telefone">Telefone:</label>
+                <input id="telefone" type="text" class="form-control form-control-sm"/>
+            </div>
+        </section>
+        <div>
+            <b>Pessoal</b>
+        </div>
+        <section class="area-pessoal">
+            <div>
+                <label for="tipoPessoa">Tipo de Pessoa:</label>
+                <select id="tipoPessoa" class="form-select form-select-sm">
+                    <option value="1">Fisica</option>
+                    <option value="0">Juridica</option>
+                </select>
+            </div>
+            <div>
+                <label for="CpfCnpj">CPF/CNPJ:</label>
+                <input id="CpfCnpj" type="text" class="form-control form-control-sm"/>
+            </div>
+            <div>
+                <label for="inscricaoEstadual">Inscricao Estadual:</label>
+                <input id="inscricaoEstadual" type="text" class="form-control form-control-sm"/>
+            </div>
+        </section>
+        <button 
+            class="btn btn-primary" type="submit" 
+            (submit)="cadastrar()">Adicionar</button>
+    </form>
+
+</div>
