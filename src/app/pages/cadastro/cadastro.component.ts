@@ -41,7 +41,7 @@ export class CadastroComponent implements OnInit{
     private readonly router:Router,
     private readonly clienteService: ClienteService
   ){}
-  
+
   ngOnInit(): void {
     this.mask();
   }
