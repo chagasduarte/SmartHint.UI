@@ -22,4 +22,7 @@ export class ClienteService {
     getCliente(page: number, size: number) : Observable<ClientePage>{
       return this.http.get<ClientePage>(`${this.WebApi}/Cliente?PageNumber=${page}&PageSize=${size}`);
     }
+    postCliente(cliente: Cliente){
+      return this.http.post(`${this.WebApi}/Cliente`, cliente);
+    }
 }

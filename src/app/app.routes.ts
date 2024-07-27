@@ -9,6 +9,10 @@ export const routes: Routes = [
         component: CompradoresComponent
     },
     {
+        path:"clientes",
+        component: CadastroComponent
+    },
+    {
         path:"edicao",
         component: EdicaoComponent
     },

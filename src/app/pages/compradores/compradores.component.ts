@@ -21,11 +21,6 @@ export class CompradoresComponent implements OnInit{
   pageNumber: number = 1;
   pageSize: number = 3;
 
-  clientFormGroup = new FormGroup({
-    nomeRazaoSocial: new FormControl(require),
-  });
-
-
   constructor(
     private readonly clienteService: ClienteService,
     private readonly router: Router
