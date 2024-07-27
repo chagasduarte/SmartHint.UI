@@ -1,7 +1,7 @@
 import { Cliente } from "./cliente";
 
 export class ClientePage {
-    items: Cliente[];
+    items!: Cliente[];
     currentPage: number;
     totalPage: number;
     pageSize: number;
