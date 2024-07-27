@@ -1,20 +1,30 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators, ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { TipoPessoa } from '../../models/enums/tipoPessoa';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ClienteService } from '../../services/cliente.service';
 import { Cliente } from '../../models/cliente';
+import { NgxMaskDirective, NgxMaskPipe } from 'ngx-mask';
 
 @Component({
   selector: 'app-cadastro',
   standalone: true,
-  imports: [ ReactiveFormsModule, FormsModule, CommonModule],
+  imports: [ 
+    ReactiveFormsModule, 
+    FormsModule, 
+    CommonModule,
+    NgxMaskPipe,
+    NgxMaskDirective
+  ],
   templateUrl: './cadastro.component.html',
   styleUrl: './cadastro.component.css'
 })
-export class CadastroComponent {
+export class CadastroComponent implements OnInit{
   
+
+  mask_cpf_cnpj!: string;
+
   clientFormGroup = new FormGroup({
     //principal
     nomeRazaoSocial: new FormControl("",Validators.required),
@@ -23,7 +33,7 @@ export class CadastroComponent {
 
     //pessoal
     tipoPessoa: new FormControl(TipoPessoa.Fisica, Validators.required),
-    cpfCnpj: new FormControl("",Validators.required),
+    cpfCnpj: new FormControl("",[Validators.required]),
     inscricaoEstadual: new FormControl("",Validators.required),
   });
 
@@ -31,6 +41,10 @@ export class CadastroComponent {
     private readonly router:Router,
     private readonly clienteService: ClienteService
   ){}
+  
+  ngOnInit(): void {
+    this.mask();
+  }
   get nomeRazaoSocial(){
     return this.clientFormGroup.get("nomeRazaoSocial")!; 
   }
@@ -70,5 +84,15 @@ export class CadastroComponent {
       this.router.navigate([""]);
     }
     
+  }
+
+  mask(){
+    if (this.clientFormGroup.get("tipoPessoa")?.value == TipoPessoa.Fisica){
+      this.mask_cpf_cnpj = "000.000.000-00"
+    }
+    if (this.clientFormGroup.get("tipoPessoa")?.value == TipoPessoa.Juridica){
+      this.mask_cpf_cnpj = "00.000.000/0000-00";
+    }
+    this.clientFormGroup.controls.cpfCnpj.setValue("");
   }
 }

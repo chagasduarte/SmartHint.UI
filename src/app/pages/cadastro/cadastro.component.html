@@ -16,14 +16,18 @@
             </div>
             <div>
                 <label for="email">E-mail:</label>
-                <input id="email" type="text" class="form-control form-control-sm" formControlName="email"/>
+                <input id="email" type="email" class="form-control form-control-sm" formControlName="email"/>
                 <div *ngIf="email.invalid && formDir.submitted">
                     <p class="aviso">O campo Email precisa ser preenchido e deve ter um valor válido</p>
                 </div>
             </div>
             <div>
                 <label for="telefone">Telefone:</label>
-                <input id="telefone" type="text" class="form-control form-control-sm" formControlName="telefone"/>
+                <input id="telefone" 
+                    type="tel" 
+                    class="form-control form-control-sm" 
+                    formControlName="telefone"
+                    mask="(00) 0 0000 0000"/>
                 <div *ngIf="telefone.invalid && formDir.submitted">
                     <p class="aviso">O campo Telefone é obrigatório</p>
                 </div>
@@ -35,9 +39,12 @@
         <section class="area-pessoal">
             <div>
                 <label for="tipoPessoa">Tipo de Pessoa:</label>
-                <select id="tipoPessoa" class="form-select form-select-sm" formControlName="tipoPessoa">
-                    <option value="1">Fisica</option>
-                    <option value="2">Juridica</option>
+                <select id="tipoPessoa" 
+                    class="form-select form-select-sm" 
+                    formControlName="tipoPessoa"
+                    (change)="mask()">
+                    <option value="1">Física</option>
+                    <option value="2">Jurídica</option>
                 </select>
                 <div *ngIf="tipoPessoa.invalid && formDir.submitted">
                     <p class="aviso">Você precisa selecionar um Tipo Pessoa</p>
@@ -45,7 +52,12 @@
             </div>
             <div>
                 <label for="CpfCnpj">CPF/CNPJ:</label>
-                <input id="CpfCnpj" type="text" class="form-control form-control-sm" formControlName="cpfCnpj"/>
+                <input id="CpfCnpj" 
+                       type="text" 
+                       class="form-control form-control-sm" 
+                       formControlName="cpfCnpj"
+                       [mask]="mask_cpf_cnpj"
+                       [placeholder]="mask_cpf_cnpj"/>
                 <div *ngIf="cpfCnpj.invalid && formDir.submitted">
                     <p class="aviso">O campo CPF/CNPJ é obrigatório</p>
                 </div>

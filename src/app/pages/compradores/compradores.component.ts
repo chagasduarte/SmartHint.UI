@@ -19,7 +19,7 @@ export class CompradoresComponent implements OnInit{
  
   clientes!: ClientePage;
   pageNumber: number = 1;
-  pageSize: number = 3;
+  pageSize: number = 20;
 
   constructor(
     private readonly clienteService: ClienteService,
