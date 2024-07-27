@@ -4,6 +4,7 @@ import { ConfigService } from './config.service';
 import { Cliente } from '../models/cliente';
 import { Observable } from 'rxjs';
 import { IClienteServce } from '../interfaces/IClienteService';
+import { ClientePage } from '../models/cliente-page';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +19,10 @@ export class ClienteService {
       this.WebApi = config.get().WebApi;
     }
 
-    getCliente() : Observable<Cliente[]>{
-      return this.http.get<Cliente[]>(`${this.WebApi}/Cliente`);
+    getCliente(page: number, size: number) : Observable<ClientePage>{
+      return this.http.get<ClientePage>(`${this.WebApi}/Cliente?PageNumber=${page}&PageSize=${size}`);
+    }
+    postCliente(cliente: Cliente){
+      return this.http.post(`${this.WebApi}/Cliente`, cliente);
     }
 }
