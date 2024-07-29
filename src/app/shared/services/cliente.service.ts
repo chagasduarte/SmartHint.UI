@@ -1,10 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ConfigService } from './config.service';
-import { Cliente } from '../models/cliente';
+import { Cliente } from '../../models/cliente';
 import { Observable } from 'rxjs';
-import { IClienteServce } from '../interfaces/IClienteService';
-import { ClientePage } from '../models/cliente-page';
+import { ClientePage } from '../../models/cliente-page';
 
 @Injectable({
   providedIn: 'root'

@@ -2,16 +2,17 @@ import { Component, OnInit } from '@angular/core';
 import DataTable from 'datatables.net-dt';
 import { Cliente } from '../../models/cliente';
 import { IClienteServce } from '../../interfaces/IClienteService';
-import { ClienteService } from '../../services/cliente.service';
+import { ClienteService } from '../../shared/services/cliente.service';
 import { Router } from '@angular/router';
 import { ClientePage } from '../../models/cliente-page';
 import { CommonModule } from '@angular/common';
 import { FormControl, FormGroup } from '@angular/forms';
+import { PhonePipe } from '../../shared/pipe/phone.pipe';
 
 @Component({
   selector: 'app-compradores',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, PhonePipe],
   templateUrl: './compradores.component.html',
   styleUrl: './compradores.component.css'
 })

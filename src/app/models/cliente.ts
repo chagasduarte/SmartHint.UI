@@ -1,3 +1,4 @@
+import { Sexo } from "./enums/orientacaoSexual"
 import { TipoPessoa } from "./enums/tipoPessoa"
 
 export interface Cliente {
@@ -8,5 +9,8 @@ export interface Cliente {
     tipoPessoa: TipoPessoa
     cpfCnpj: string
     inscricaoEstadual: string
-    dataCadastro: Date
+    dataCadastro: Date,
+    sexo: Sexo,
+    dataNascimento: Date,
+    senha: string
 }
