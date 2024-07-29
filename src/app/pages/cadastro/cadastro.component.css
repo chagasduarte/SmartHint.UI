@@ -1,3 +1,15 @@
 .aviso {
     color: red;
 }
+
+.area-pessoal {
+    margin-bottom: 1rem;
+}
+
+label {
+    white-space: nowrap;
+}
+
+.senha input {
+   width: 15rem;   
+}
