@@ -82,7 +82,12 @@
                 <div class="d-flex mb-2">
                     <label class="form-label me-2" for="inscricaoEstadual">Inscrição Estadual:</label>
                     <div>
-                        <input id="inscricaoEstadual" type="text" class="form-control form-control-sm" formControlName="inscricaoEstadual"/>
+                        <input id="inscricaoEstadual" 
+                            type="text" 
+                            class="form-control form-control-sm" 
+                            formControlName="inscricaoEstadual"
+                            mask="000.000.000-000"
+                            placeholder="000.000.000-000"/>
                         <div *ngIf="inscricaoEstadual.invalid && formDir.submitted">
                             <p class="aviso">O campo Inscrição Estadual é obrigatório</p>
                         </div>
@@ -135,8 +140,8 @@
             <div class="d-flex mb-2">
                 <label class="form-label me-2" for="confirmacaoSenha">Confirmação de Senha:</label>
                 <div class="col">
-                    <input id="confirmacaoSenha" type="text" class="form-control form-control-sm"/>
-                    <div *ngIf="senha.valid && (senha.value != confirmaSenha.value)">
+                    <input id="confirmacaoSenha" type="text" class="form-control form-control-sm" formControlName="confirmaSenha"/>
+                    <div *ngIf="confirmaSenha.errors?.['senhasNaoCorrespondem']">
                         <p class="aviso">As senhas não conferem</p>
                     </div>
                 </div>

@@ -7,7 +7,7 @@ import { ClienteService } from '../../shared/services/cliente.service';
 import { Cliente } from '../../models/cliente';
 import { NgxMaskDirective, NgxMaskPipe } from 'ngx-mask';
 import { Sexo } from '../../models/enums/orientacaoSexual';
-import { FormValidation } from '../../shared/validations/formValidations';
+import { confirmarSenha } from '../../shared/validations/formValidations';
 
 @Component({
   selector: 'app-cadastro',
@@ -26,37 +26,36 @@ export class CadastroComponent implements OnInit{
   
 
   mask_cpf_cnpj!: string;
-  confirmacaoSenhaValida!: boolean;
 
-  clientFormGroup = new FormGroup({
-    //principal
-    nomeRazaoSocial: new FormControl("",Validators.required),
-    email: new FormControl("",[Validators.email,Validators.required]),
-    telefone: new FormControl("",Validators.required),
-
-    //pessoal
-    tipoPessoa: new FormControl(TipoPessoa.Fisica, Validators.required),
-    cpfCnpj: new FormControl("",[Validators.required]),
-    inscricaoEstadual: new FormControl("",Validators.required),
-    sexo: new FormControl(Sexo.Feminino),
-    dataNascimento: new FormControl(new Date()),
-
-    //senha
-    senha: new FormControl("", Validators.required),
-  });
-  
-  validationFormGroup!: FormGroup;
+  clientFormGroup: FormGroup;
+  senhaIsConfirmed!: boolean;
 
   constructor(
     private readonly router:Router,
     private readonly clienteService: ClienteService,
     private readonly formBuilder: FormBuilder
-  ){}
+  ){
+    this.clientFormGroup = formBuilder.group({
+      nomeRazaoSocial: ["",[Validators.required, Validators.maxLength(150)]],
+      email: ["",[Validators.email,Validators.required, Validators.maxLength(150)]],
+      telefone: ["",[Validators.required, Validators.maxLength(11)]],
+
+      //pessoal
+      tipoPessoa: [TipoPessoa.Fisica, Validators.required],
+      cpfCnpj: ["",[Validators.required, Validators.maxLength(14)]],
+      inscricaoEstadual: ["",[Validators.required, Validators.maxLength(12)]],
+      sexo: [Sexo.Feminino],
+      dataNascimento: [new Date()],
+      inscricaoEstadualPessoaFisica: [false, [Validators.required]],
+      //senha
+      senha: ["", [Validators.required,]],
+      confirmaSenha: [""]
+    });
+
+    this.clientFormGroup.controls["confirmaSenha"].addValidators(confirmarSenha(this.clientFormGroup));
+  }
 
   ngOnInit(): void {
-    this.validationFormGroup = this.formBuilder.group({
-        confirmaSenha: ["", [Validators.required, FormValidation.equalTo("senha")]]
-    })
     this.mask();
   }
   get nomeRazaoSocial(){
@@ -91,8 +90,13 @@ export class CadastroComponent implements OnInit{
   get confirmaSenha(){
     return this.clientFormGroup.get("confirmaSenha")!;
   }
+  get inscricaoEstadualPessoaFisica(){
+    return this.clientFormGroup.get("inscricaoEstadualPessoaFisica")!;
+  }
 
   cadastrarCliente(){
+  console.log(this.clientFormGroup.controls["confirmaSenha"])
+
     if(this.clientFormGroup.valid){
       const cliente : Cliente = {
         id: 0,
@@ -105,7 +109,8 @@ export class CadastroComponent implements OnInit{
         dataCadastro: new Date(),
         sexo: this.sexo.value || Sexo.Outros,
         dataNascimento: this.dataNascimento.value || new Date(),
-        senha: this.senha.value || ""
+        senha: this.senha.value || "",
+        inscricaoEstadualPessoaFisica: false
       }
       this.clienteService.postCliente(cliente).subscribe({
         next: (success: any) => {
@@ -124,20 +129,10 @@ export class CadastroComponent implements OnInit{
     if (this.clientFormGroup.get("tipoPessoa")?.value == TipoPessoa.Juridica){
       this.mask_cpf_cnpj = "00.000.000/0000-00";
     }
-    this.clientFormGroup.controls.cpfCnpj.setValue("");
+    this.clientFormGroup.controls['cpfCnpj'].setValue("");
   }
   clientes(){
     this.router.navigate([""]);
   }
-  confirmarSenha(){
-    if(this.senha != this.confirmaSenha){
-      this.confirmacaoSenhaValida = false;
-    }
-    else {
-      this.confirmacaoSenhaValida = true;
-    }
-    console.log("aqui")
-  }
-
 
 }

@@ -12,5 +12,6 @@ export interface Cliente {
     dataCadastro: Date,
     sexo: Sexo,
     dataNascimento: Date,
-    senha: string
+    senha: string,
+    inscricaoEstadualPessoaFisica: boolean
 }
