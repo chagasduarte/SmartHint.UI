@@ -47,8 +47,8 @@
             </div>
             
         </section>
-        <div>
-            <b>Pessoal</b>
+        <div class="mb-3">
+            <b>Informações Pessoais</b>
         </div>
         <section class="area-pessoal">
             <div class="d-flex mb-2">
@@ -97,17 +97,17 @@
              
             <div class="d-flex"  *ngIf="tipoPessoa.value == 1">
                 <div class="d-flex me-3">
-                    <label class="form-label me-2" for="sexo">Sexo:</label>
+                    <label class="form-label me-2" for="sexo">Genero:</label>
                     <div>
-                        <select id="sexo" 
+                        <select id="genero" 
                             class="form-select form-select-sm col" 
-                            formControlName="sexo">
+                            formControlName="genero">
                             <option value="1">Masculino</option>
                             <option value="2">Feminino</option>
                             <option value="3">Outros</option>
                         </select>
-                        <div *ngIf="sexo.invalid && formDir.submitted">
-                            <p class="aviso">O campo Sexo é obrigatório</p>
+                        <div *ngIf="genero.invalid && formDir.submitted">
+                            <p class="aviso">O campo Genero é obrigatório</p>
                         </div>
                     </div>
                        
@@ -146,6 +146,9 @@
                     </div>
                 </div>
             </div> 
+        </section>
+        <section class="situacaoCliente">
+        
         </section>
         <button 
             class="btn btn-warning me-3" 

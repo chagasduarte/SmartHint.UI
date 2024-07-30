@@ -1,4 +1,4 @@
-import { Sexo } from "./enums/orientacaoSexual"
+import { Genero } from "./enums/orientacaoSexual"
 import { TipoPessoa } from "./enums/tipoPessoa"
 
 export interface Cliente {
@@ -10,8 +10,9 @@ export interface Cliente {
     cpfCnpj: string
     inscricaoEstadual: string
     dataCadastro: Date,
-    sexo: Sexo,
+    genero: Genero,
     dataNascimento: Date,
     senha: string,
-    inscricaoEstadualPessoaFisica: boolean
+    inscricaoEstadualPessoaFisica: boolean,
+    bloqueado: boolean
 }

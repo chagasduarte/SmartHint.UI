@@ -6,8 +6,9 @@ import { CommonModule } from '@angular/common';
 import { ClienteService } from '../../shared/services/cliente.service';
 import { Cliente } from '../../models/cliente';
 import { NgxMaskDirective, NgxMaskPipe } from 'ngx-mask';
-import { Sexo } from '../../models/enums/orientacaoSexual';
-import { confirmarSenha } from '../../shared/validations/formValidations';
+import { Genero } from '../../models/enums/orientacaoSexual';
+import { confirmarSenha } from '../../shared/validations/confirmaSenha';
+import { confirmaInscricaoEstadual } from '../../shared/validations/inscricaoEstadual';
 
 @Component({
   selector: 'app-cadastro',
@@ -29,6 +30,7 @@ export class CadastroComponent implements OnInit{
 
   clientFormGroup: FormGroup;
   senhaIsConfirmed!: boolean;
+  isento: boolean = false;
 
   constructor(
     private readonly router:Router,
@@ -43,8 +45,9 @@ export class CadastroComponent implements OnInit{
       //pessoal
       tipoPessoa: [TipoPessoa.Fisica, Validators.required],
       cpfCnpj: ["",[Validators.required, Validators.maxLength(14)]],
-      inscricaoEstadual: ["",[Validators.required, Validators.maxLength(12)]],
-      sexo: [Sexo.Feminino],
+      inscricaoEstadual: [{ value: '', disabled: this.isento }, [Validators.pattern(/^\d{3}\.\d{3}\.\d{3}-\d{3}$/)]],
+      isento: [false],
+      genero: [Genero.Feminino],
       dataNascimento: [new Date()],
       inscricaoEstadualPessoaFisica: [false, [Validators.required]],
       //senha
@@ -53,6 +56,17 @@ export class CadastroComponent implements OnInit{
     });
 
     this.clientFormGroup.controls["confirmaSenha"].addValidators(confirmarSenha(this.clientFormGroup));
+    this.clientFormGroup.controls["inscricaoEstadual"].addValidators(confirmaInscricaoEstadual(this.clientFormGroup))
+
+    // Atualiza o estado do campo quando o checkbox é alterado
+    this.clientFormGroup.get('isento')?.valueChanges.subscribe(value => {
+      this.isento = value;
+      if (this.isento) {
+        this.clientFormGroup.get('inscricaoEstadual')?.disable();
+      } else {
+        this.clientFormGroup.get('inscricaoEstadual')?.enable();
+      }
+    });
   }
 
   ngOnInit(): void {
@@ -76,8 +90,8 @@ export class CadastroComponent implements OnInit{
   get inscricaoEstadual(){
     return this.clientFormGroup.get("inscricaoEstadual")!; 
   }
-  get sexo(){
-    return  this.clientFormGroup.get("sexo")!;
+  get genero(){
+    return  this.clientFormGroup.get("genero")!;
   }
 
   get dataNascimento(){
@@ -107,10 +121,11 @@ export class CadastroComponent implements OnInit{
         cpfCnpj: this.cpfCnpj.value || "",
         inscricaoEstadual: this.inscricaoEstadual.value || "",
         dataCadastro: new Date(),
-        sexo: this.sexo.value || Sexo.Outros,
+        genero: this.genero.value || Genero.Outros,
         dataNascimento: this.dataNascimento.value || new Date(),
         senha: this.senha.value || "",
-        inscricaoEstadualPessoaFisica: false
+        inscricaoEstadualPessoaFisica: false,
+        bloqueado: false
       }
       this.clienteService.postCliente(cliente).subscribe({
         next: (success: any) => {
