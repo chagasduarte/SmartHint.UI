@@ -10,7 +10,10 @@ import { PhonePipe } from '../../shared/pipe/phone.pipe';
 @Component({
   selector: 'app-compradores',
   standalone: true,
-  imports: [CommonModule, PhonePipe, ReactiveFormsModule],
+  imports: [
+    CommonModule, 
+    PhonePipe, 
+    ReactiveFormsModule],
   templateUrl: './compradores.component.html',
   styleUrl: './compradores.component.css'
 })
@@ -45,6 +48,8 @@ export class CompradoresComponent implements OnInit{
       next: (success: ClientePage) => {
         this.clientes = success;
         this.formGroup.addControl("formArray", this.buildCompradoresCheckbox(this.clientes.items))
+      },
+      error: (err: any) => {
       }
     });
   }

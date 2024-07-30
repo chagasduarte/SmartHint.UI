@@ -31,6 +31,7 @@ export class CadastroComponent implements OnInit{
   clientFormGroup: FormGroup;
   senhaIsConfirmed!: boolean;
   isento: boolean = false;
+  inscEstadualPlaceHolder: string = "000.000.000-000"
 
   constructor(
     private readonly router:Router,
@@ -49,10 +50,13 @@ export class CadastroComponent implements OnInit{
       isento: [false],
       genero: [Genero.Feminino],
       dataNascimento: [new Date()],
-      inscricaoEstadualPessoaFisica: [false, [Validators.required]],
+
       //senha
       senha: ["", [Validators.required,]],
-      confirmaSenha: [""]
+      confirmaSenha: [""],
+
+      //situação
+      bloqueado: [false, [Validators.required]]
     });
 
     this.clientFormGroup.controls["confirmaSenha"].addValidators(confirmarSenha(this.clientFormGroup));
@@ -109,8 +113,6 @@ export class CadastroComponent implements OnInit{
   }
 
   cadastrarCliente(){
-  console.log(this.clientFormGroup.controls["confirmaSenha"])
-
     if(this.clientFormGroup.valid){
       const cliente : Cliente = {
         id: 0,
@@ -148,6 +150,16 @@ export class CadastroComponent implements OnInit{
   }
   clientes(){
     this.router.navigate([""]);
+  }
+
+  isentar(event:Event){
+    const isento = event?.target as HTMLInputElement;
+    if(isento.checked){
+      this.inscEstadualPlaceHolder = "Isento"
+    }
+    else{
+      this.inscEstadualPlaceHolder = "000.000.000-000"
+    }
   }
 
 }

@@ -81,14 +81,15 @@
                 </div>
                 <div class="d-flex mb-2">
                     <label class="form-label me-2" for="inscricaoEstadual">Inscrição Estadual:</label>
+                    <input *ngIf="tipoPessoa.value == 1" type="checkbox" formControlName="isento" class="form-check-input me-2" (change)="isentar($event)">
                     <div>
                         <input id="inscricaoEstadual" 
                             type="text" 
                             class="form-control form-control-sm" 
                             formControlName="inscricaoEstadual"
                             mask="000.000.000-000"
-                            placeholder="000.000.000-000"/>
-                        <div *ngIf="inscricaoEstadual.invalid && formDir.submitted">
+                            [placeholder]="inscEstadualPlaceHolder"/>
+                        <div *ngIf="inscricaoEstadual.errors?.['confirmaInscricaoEstadual'] && formDir.submitted">
                             <p class="aviso">O campo Inscrição Estadual é obrigatório</p>
                         </div>
                     </div>
@@ -130,7 +131,7 @@
             <div class="d-flex mb-2 me-3">
                 <label class="form-label me-2" for="senha">Senha:</label>
                 <div>
-                    <input id="senha" type="text" class="form-control form-control-sm" formControlName="senha" />
+                    <input id="senha" type="password" class="form-control form-control-sm" formControlName="senha" />
                     <div *ngIf="senha.invalid && formDir.submitted">
                         <p class="aviso">O campo senha é obrigatório</p>
                     </div>
@@ -140,15 +141,19 @@
             <div class="d-flex mb-2">
                 <label class="form-label me-2" for="confirmacaoSenha">Confirmação de Senha:</label>
                 <div class="col">
-                    <input id="confirmacaoSenha" type="text" class="form-control form-control-sm" formControlName="confirmaSenha"/>
+                    <input id="confirmacaoSenha" type="password" class="form-control form-control-sm" formControlName="confirmaSenha"/>
                     <div *ngIf="confirmaSenha.errors?.['senhasNaoCorrespondem']">
                         <p class="aviso">As senhas não conferem</p>
                     </div>
                 </div>
             </div> 
         </section>
-        <section class="situacaoCliente">
-        
+        <div class="d-flex mb-3">
+           <b>Situação do Cliente</b> 
+        </div>
+        <section class="situacaoCliente mb-3">
+            <input type="checkbox" id="bloqueado" class="form-check-input me-2" formControlName="bloqueado">
+            <label for="bloqueado">Bloqueado</label>
         </section>
         <button 
             class="btn btn-warning me-3" 

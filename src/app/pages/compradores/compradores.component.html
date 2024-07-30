@@ -52,7 +52,7 @@
                     <td>{{ cliente.email }}</td>
                     <td>{{ cliente.telefone | phone }}</td>
                     <td>{{ cliente.dataCadastro | date: "dd/MM/YYYY" }}</td>
-                    <td><input type="checkbox"></td>
+                    <td><input type="checkbox" [checked]="cliente.bloqueado"></td>
                     <td><button class="btn btn-primary" (click)="edicao(cliente)" ><i class="bi bi-gear"></i></button></td>
                 </tr>
             </tbody>
