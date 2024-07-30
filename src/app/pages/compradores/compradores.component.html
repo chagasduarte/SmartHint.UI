@@ -44,8 +44,9 @@
                 </tr>
             </thead>
             <tbody formArrayName="formArray">
-                <tr *ngFor="let cliente of clientes.items; let i = index">
-                    <td><input class="form-check-input" name="check_input" 
+                <tr *ngFor="let cliente of clientes?.items; let i = index">
+                    <td><input class="form-check-input" 
+                        name="check_input" 
                         [formControlName]="i" type="checkbox" 
                         (change)="update()"/></td>
                     <td> {{ cliente.nome }} </td>

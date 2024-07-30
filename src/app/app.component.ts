@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { FormControl, FormGroup, Validators, ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { NgxMaskDirective, NgxMaskPipe } from 'ngx-mask';
 
@@ -13,7 +13,7 @@ import { NgxMaskDirective, NgxMaskPipe } from 'ngx-mask';
     FormsModule, 
     CommonModule,
     NgxMaskDirective,
-    NgxMaskPipe
+    NgxMaskPipe,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'

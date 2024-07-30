@@ -6,13 +6,13 @@ export interface Cliente {
     nome: string
     email: string
     telefone: string
-    tipoPessoa: TipoPessoa
+    tipoPessoa: number
     cpfCnpj: string
-    inscricaoEstadual: string
-    dataCadastro: Date,
-    genero: Genero,
-    dataNascimento: Date,
+    inscricaoEstadual: string,
+    isento: boolean,
+    dataCadastro: string,
     senha: string,
-    inscricaoEstadualPessoaFisica: boolean,
+    genero: number,
+    dataNascimento: string,
     bloqueado: boolean
 }

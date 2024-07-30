@@ -6,6 +6,7 @@ import { ClientePage } from '../../models/cliente-page';
 import { CommonModule } from '@angular/common';
 import { FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { PhonePipe } from '../../shared/pipe/phone.pipe';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-compradores',
@@ -13,14 +14,21 @@ import { PhonePipe } from '../../shared/pipe/phone.pipe';
   imports: [
     CommonModule, 
     PhonePipe, 
-    ReactiveFormsModule],
+    ReactiveFormsModule,],
   templateUrl: './compradores.component.html',
   styleUrl: './compradores.component.css'
 })
 export class CompradoresComponent implements OnInit{
 
  
-  clientes!: ClientePage;
+  clientes: ClientePage = {
+    items: [],
+    currentPage: 0,
+    totalPage: 0,
+    pageSize: 0,
+    totalCount: 0
+  };
+
   pageNumber: number = 1;
   pageSize: number = 20;
   todosMarcados: boolean = false;
@@ -31,31 +39,31 @@ export class CompradoresComponent implements OnInit{
   constructor(
     private readonly clienteService: ClienteService,
     private readonly router: Router,
-    private readonly formBuilder: FormBuilder
+    private readonly formBuilder: FormBuilder,
+    private readonly toastService: ToastrService
   ){}
 
+  ngOnInit(): void {
+    this.getClientesPerPage(this.pageNumber, this.pageSize);
+  }
   get formArray()
   {
     return this.formGroup.get("formArray")!;
   }   
-  
-  ngOnInit(): void {
-    this.getClientesPerPage(this.pageNumber, this.pageSize);
-  }
-
   getClientesPerPage(page: number, size:number){
     this.clienteService.getCliente(page, size).subscribe({
       next: (success: ClientePage) => {
         this.clientes = success;
-        this.formGroup.addControl("formArray", this.buildCompradoresCheckbox(this.clientes.items))
+        this.formGroup.addControl("formArray", this.buildCompradoresCheckbox(this.clientes.items));
       },
       error: (err: any) => {
+        this.toastService.error(err.error, "Erro");
       }
     });
   }
   
   edicao(cli: Cliente){
-    this.router.navigate(["edicao"], { queryParams: cli  as Cliente});
+    this.router.navigate(["cadastro"], { queryParams: cli  as Cliente});
   }
 
   cadastro(){

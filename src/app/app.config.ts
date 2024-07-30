@@ -6,7 +6,6 @@ import { provideClientHydration } from '@angular/platform-browser';
 import { provideHttpClient, withFetch } from '@angular/common/http';
 import { provideEnvironmentNgxMask } from 'ngx-mask';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideToastr } from 'ngx-toastr';
 
 export const appConfig: ApplicationConfig = {
@@ -15,7 +14,12 @@ export const appConfig: ApplicationConfig = {
               provideClientHydration(),
               provideHttpClient(withFetch()),
               provideEnvironmentNgxMask(), 
-              provideAnimationsAsync()
+              provideAnimationsAsync(),
+              provideToastr({timeOut: 5000,
+                closeButton: true, // Adiciona o botão de fechar
+                progressBar: true,
+                positionClass: 'toast-top-right',
+                preventDuplicates: true})
             ]
 
 };
