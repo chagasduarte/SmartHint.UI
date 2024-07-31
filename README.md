@@ -18,7 +18,7 @@ Esse projeto, desenvolvido em angular 18, é uma parte de um sistema que possue 
 A WebApi, desenvolvida em .net core 8, https://github.com/chagasduarte/SmartHint.WebApi.git que está nesse repositório; E o FrontEnd que se encontra nesse projeto.
 ## Funcionalidades
 Possue apenas duas telas, de modo que é possível cadastrar e editar clientes, sendo esses do tipo Pessoa Física ou Pessoa Juridica.
-- Todas as funcionalidades solicitadas no arquivo <a href="./SmartHint - Teste desenvolvedor(a) .Net.pdf"/>
+- Todas as funcionalidades solicitadas no <a href="./SmartHint - Teste desenvolvedor(a) .Net.pdf">arquivo</a>
 
 ## Tecnologias Utilizadas
 
