@@ -40,7 +40,7 @@ Passo a passo para configurar o projeto localmente:
 
 1. Clone o repositório:
     ```bash
-    git clone [https://github.com/usuario/nome-do-repositorio.git](https://github.com/chagasduarte/SmartHint.UI.git)
+    git clone https://github.com/chagasduarte/SmartHint.UI.git
     ```
 2. Navegue até o diretório do projeto:
     ```bash
