@@ -71,6 +71,7 @@ export class CadastroComponent implements OnInit{
   ){
     this.actveRouter.queryParams.subscribe(params => {
       this.cliente = params as Cliente;
+      console.log("Seta Cliente: ",this.cliente)
     })
 
     this.clientFormGroup.controls["confirmaSenha"].addValidators(confirmarSenha(this.clientFormGroup));
@@ -83,9 +84,9 @@ export class CadastroComponent implements OnInit{
     this.clientFormGroup.get('isento')?.valueChanges.subscribe(value => {
       this.isIsento = value as boolean;
       if (this.isIsento) {
-        this.clientFormGroup.get('inscricaoEstadual')?.disable();
+        this.clientFormGroup.controls['inscricaoEstadual']?.disable();
       } else {
-        this.clientFormGroup.get('inscricaoEstadual')?.enable();
+        this.clientFormGroup.controls['inscricaoEstadual']?.enable();
       }
     });
 
@@ -131,16 +132,17 @@ export class CadastroComponent implements OnInit{
   }
 
   get bloqueado(){
-    return this.clientFormGroup.get("bloqueado")!;
+    return this.clientFormGroup.controls["bloqueado"]!;
   }
   get isento(){
     return this.clientFormGroup.get("isento")!;
   }
 
   cadastrarCliente(){
+    console.log(this.clientFormGroup)
     if(this.clientFormGroup.valid || this.clientFormGroup.errors?.["pessoaJuridicaValida"]){
       const cliente : Cliente = {
-        id: 0,
+        id: parseInt(this.cliente?.id?.toString() || "0"),
         nome: this.nomeRazaoSocial.value || "",
         email: this.email.value || "",
         telefone: this.telefone.value || "",
@@ -148,32 +150,27 @@ export class CadastroComponent implements OnInit{
         cpfCnpj: this.cpfCnpj.value || "",
         inscricaoEstadual: this.inscricaoEstadual.value || "",
         dataCadastro: formatDate(new Date(), "YYYY-MM-dd", this.locale),
-        genero: this.tipoPessoa.value == TipoPessoa.Juridica? 
+        genero: this.tipoPessoa.value == TipoPessoa.Fisica? 
           parseInt(this.genero.value?.toString() || Genero.Outros.toString()): 
           Genero.Outros,
 
-        dataNascimento: this.tipoPessoa.value == TipoPessoa.Juridica? 
-          this.dataNascimento.value?.toString() || new Date().toString(): 
-          new Date().toString(),
+        dataNascimento: this.tipoPessoa.value == TipoPessoa.Fisica? 
+          this.dataNascimento.value?.toString().split("T")[0] || new Date().toString(): 
+          formatDate(new Date().toString(), "yyyy-MM-dd", this.locale),
 
         senha: this.senha.value || "",
-        bloqueado: this.bloqueado.value || false, 
+        bloqueado: Boolean(this.bloqueado.value || false), 
         isento: this.tipoPessoa.value == TipoPessoa.Juridica? 
           false: 
-          this.isento.value || false
+          Boolean(this.isento.value || false)
       }
-      this.clienteService.postCliente(cliente).subscribe({
-        next: (success: any) => {
-          this.toastService.success("Sucesso", `Cliente cadastrado: ${success.id}`, {timeOut: 5000, closeButton: true})
-        },
-        error: (err: any) =>{
-          if(err.status == 400){
-            this.toastService.error(err.error.errors[""], "Erro", {timeOut: 5000, closeButton: true});
-            return;
-          }
-          this.toastService.error(err.error,"Erro", {timeOut: 5000, closeButton: true});
-        }
-      });
+      if(cliente.id != 0){
+        this.atualizar(cliente);
+      }
+      else{
+        this.gravar(cliente);
+      }
+      
       this.clientes();
     }
     
@@ -216,8 +213,41 @@ export class CadastroComponent implements OnInit{
     this.clientFormGroup.controls["inscricaoEstadual"].setValue(this.cliente.inscricaoEstadual);  
     this.clientFormGroup.controls["isento"].setValue(this.cliente.isento);            
     this.clientFormGroup.controls["genero"].setValue(this.cliente.genero);            
-    this.clientFormGroup.controls["dataNascimento"].setValue(formatDate(this.cliente.dataNascimento, "yyyy-MM-dd", this.locale) );    
-    this.clientFormGroup.controls["bloqueado"].setValue(this.cliente.bloqueado);         
+    this.clientFormGroup.controls["dataNascimento"].setValue(formatDate(this.cliente.dataNascimento, "yyyy-MM-dd", this.locale));    
+    this.clientFormGroup.controls["bloqueado"].setValue(this.cliente.bloqueado);   
+    console.log("setaGroup: ", this.cliente.bloqueado, this.clientFormGroup.controls.bloqueado);      
+  }
+
+  gravar(cliente: Cliente){
+    this.clienteService.postCliente(cliente).subscribe({
+      next: (success: any) => {
+        this.toastService.success("Sucesso", `Cliente cadastrado: ${success.id}`, {timeOut: 5000, closeButton: true})
+      },
+      error: (err: any) =>{
+        console.log(err);
+        if(err.status == 400){
+          this.toastService.error(err.error.errors[""], "Erro", {timeOut: 5000, closeButton: true});
+          return;
+        }
+        this.toastService.error(err.error,"Erro", {timeOut: 5000, closeButton: true});
+      }
+    });
+  }
+
+  atualizar(cliente: Cliente){
+    this.clienteService.putCliente(cliente).subscribe({
+      next: (success: any) => {
+        this.toastService.success("Sucesso", `Cliente Atualizado: ${success.id}`, {timeOut: 5000, closeButton: true})
+      },
+      error: (err: any) =>{
+        console.log(err)
+        if(err.status == 400){
+          this.toastService.error(err.error.errors[""], "Erro", {timeOut: 5000, closeButton: true});
+          return;
+        }
+        this.toastService.error(err.error,"Erro", {timeOut: 5000, closeButton: true});
+      }
+    });
   }
 
 }

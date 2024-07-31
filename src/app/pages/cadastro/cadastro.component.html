@@ -135,6 +135,12 @@
                     <div *ngIf="senha.invalid && formDir.submitted">
                         <p class="aviso">O campo senha é obrigatório</p>
                     </div>
+                    <div *ngIf="senha?.errors?.['minlength']">
+                        <p class="aviso">Senha deve ter pelo menos 8 caracteres.</p>
+                    </div>
+                    <div *ngIf="senha?.errors?.['maxlength']">
+                        <p class="aviso">Senha deve ter no máximo 15 caracteres.</p>
+                    </div>
                 </div>
                
             </div>   
@@ -145,8 +151,6 @@
                     <div *ngIf="confirmaSenha.errors?.['senhasNaoCorrespondem']">
                         <p class="aviso">As senhas não conferem</p>
                     </div>
-                    <div *ngIf="senha?.errors?.['minlength']"><p>Senha deve ter pelo menos 8 caracteres.</p></div>
-                    <div *ngIf="senha?.errors?.['maxlength']"><p>Senha deve ter no máximo 15 caracteres.</p></div>
                 </div>
             </div> 
         </section>

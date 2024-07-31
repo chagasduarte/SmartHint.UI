@@ -16,10 +16,9 @@ export const appConfig: ApplicationConfig = {
               provideEnvironmentNgxMask(), 
               provideAnimationsAsync(),
               provideToastr({timeOut: 5000,
-                closeButton: true, // Adiciona o botão de fechar
+                closeButton: true,
                 progressBar: true,
-                positionClass: 'toast-top-right',
+                positionClass: 'toast-button-left',
                 preventDuplicates: true})
             ]
-
 };

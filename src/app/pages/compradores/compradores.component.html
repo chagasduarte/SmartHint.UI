@@ -8,8 +8,8 @@
         </div>
     </div>
     <div class="card-body">
-        <div class="d-flex">
-            <button class="btn btn-primary btn-sm me-1 mb-1" 
+        <div class="d-flex mb-1">
+            <button class="btn btn-primary btn-sm me-1" 
                     data-bs-toggle="collapse" 
                     href="#filtrar" 
                     role="button" 
@@ -18,9 +18,12 @@
                 Filtrar
             </button>
             <div class="collapse collapse-right" id="filtrar">
-                <input class="form-control form-control-sm" 
+                <div class="d-flex" [formGroup]="buscaFormGroup">
+                    <input class="form-control form-control-sm" 
                     type="text" 
-                    placeholder="Filtrar"/>
+                    placeholder="Filtrar" formControlName="busca"/>
+                    <button class="btn btn-sm" (click)="buscaByName()"><i class="bi bi-search"></i></button>
+                </div>
             </div>
         </div>
        
@@ -59,7 +62,7 @@
             </tbody>
         </table>
         
-        <div class="pagination">
+        <div class="pagination" *ngIf="clientes">
             <i *ngIf="clientes.currentPage > 1" class="bi bi-arrow-left-circle-fill" (click)="changePage(-1)"></i>
             {{clientes.currentPage!}} de {{clientes.totalPage!}}
             <i *ngIf="clientes.currentPage < clientes.totalPage" class="bi bi-arrow-right-circle-fill" (click)="changePage(1)"></i>

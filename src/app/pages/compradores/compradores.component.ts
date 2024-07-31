@@ -35,6 +35,9 @@ export class CompradoresComponent implements OnInit{
   parcialmenteMarcado: boolean = false;
 
   formGroup = new FormGroup({});
+  buscaFormGroup = new FormGroup({
+    busca: new FormControl("")
+  })
 
   constructor(
     private readonly clienteService: ClienteService,
@@ -57,7 +60,7 @@ export class CompradoresComponent implements OnInit{
         this.formGroup.addControl("formArray", this.buildCompradoresCheckbox(this.clientes.items));
       },
       error: (err: any) => {
-        this.toastService.error(err.error, "Erro");
+        
       }
     });
   }
@@ -128,6 +131,14 @@ export class CompradoresComponent implements OnInit{
     newValues.forEach((value, index) => {
       if (formArray.at(index)) {
         formArray.at(index).setValue(value);
+      }
+    });
+  }
+
+  buscaByName(){
+    this.clienteService.getByName(this.buscaFormGroup.controls.busca.value || "", this.pageNumber, this.pageSize).subscribe({
+      next: (success: ClientePage) => {
+         this.clientes = success;
       }
     });
   }
