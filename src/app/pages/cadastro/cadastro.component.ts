@@ -71,7 +71,6 @@ export class CadastroComponent implements OnInit{
   ){
     this.actveRouter.queryParams.subscribe(params => {
       this.cliente = params as Cliente;
-      console.log("Seta Cliente: ",this.cliente)
     })
 
     this.clientFormGroup.controls["confirmaSenha"].addValidators(confirmarSenha(this.clientFormGroup));
@@ -139,7 +138,6 @@ export class CadastroComponent implements OnInit{
   }
 
   cadastrarCliente(){
-    console.log(this.clientFormGroup)
     if(this.clientFormGroup.valid || this.clientFormGroup.errors?.["pessoaJuridicaValida"]){
       const cliente : Cliente = {
         id: parseInt(this.cliente?.id?.toString() || "0"),
@@ -215,7 +213,6 @@ export class CadastroComponent implements OnInit{
     this.clientFormGroup.controls["genero"].setValue(this.cliente.genero);            
     this.clientFormGroup.controls["dataNascimento"].setValue(formatDate(this.cliente.dataNascimento, "yyyy-MM-dd", this.locale));    
     this.clientFormGroup.controls["bloqueado"].setValue(this.cliente.bloqueado);   
-    console.log("setaGroup: ", this.cliente.bloqueado, this.clientFormGroup.controls.bloqueado);      
   }
 
   gravar(cliente: Cliente){
@@ -224,7 +221,6 @@ export class CadastroComponent implements OnInit{
         this.toastService.success("Sucesso", `Cliente cadastrado: ${success.id}`, {timeOut: 5000, closeButton: true})
       },
       error: (err: any) =>{
-        console.log(err);
         if(err.status == 400){
           this.toastService.error(err.error.errors[""], "Erro", {timeOut: 5000, closeButton: true});
           return;
@@ -240,7 +236,6 @@ export class CadastroComponent implements OnInit{
         this.toastService.success("Sucesso", `Cliente Atualizado: ${success.id}`, {timeOut: 5000, closeButton: true})
       },
       error: (err: any) =>{
-        console.log(err)
         if(err.status == 400){
           this.toastService.error(err.error.errors[""], "Erro", {timeOut: 5000, closeButton: true});
           return;

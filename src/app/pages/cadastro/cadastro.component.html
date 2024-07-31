@@ -1,8 +1,8 @@
-<div class="card">
-  <div class="container">
+<div class="container">
+  <div class="card-container">
 
-    <form (submit)="cadastrarCliente()" [formGroup]="clientFormGroup" #formDir="ngForm">
-        <div class="mb-3">
+    <form (submit)="cadastrarCliente()" [formGroup]="clientFormGroup" #formDir="ngForm" class="centered">
+        <div class="d-flex mb-3">
             <b>Principal</b>
         </div>
         <section class="area-principal mb-3">
@@ -47,7 +47,7 @@
             </div>
             
         </section>
-        <div class="mb-3">
+        <div class="d-flex mb-3">
             <b>Informações Pessoais</b>
         </div>
         <section class="area-pessoal">
@@ -96,8 +96,8 @@
                 </div>  
             </div>
              
-            <div class="d-flex"  *ngIf="tipoPessoa.value == 1">
-                <div class="d-flex me-3">
+            <div class="d-flex row"  *ngIf="tipoPessoa.value == 1">
+                <div class="d-flex me-3 col">
                     <label class="form-label me-2" for="sexo">Genero:</label>
                     <div>
                         <select id="genero" 
@@ -113,7 +113,7 @@
                     </div>
                        
                 </div>
-                <div class="d-flex">
+                <div class="d-flex col">
                     <label class="form-label me-2" for="dataNascimento">Data de Nascimento:</label>
                     <div class="col">
                         <div>
@@ -127,8 +127,8 @@
                 </div>   
             </div>
         </section>
-        <section class="senha d-flex">
-            <div class="d-flex mb-2 me-3">
+        <section class="senha d-flex row">
+            <div class="d-flex mb-2 me-3 col">
                 <label class="form-label me-2" for="senha">Senha:</label>
                 <div>
                     <input id="senha" type="password" class="form-control form-control-sm" formControlName="senha" />
@@ -144,7 +144,7 @@
                 </div>
                
             </div>   
-            <div class="d-flex mb-2">
+            <div class="d-flex mb-2 col">
                 <label class="form-label me-2" for="confirmacaoSenha">Confirmação de Senha:</label>
                 <div class="col">
                     <input id="confirmacaoSenha" type="password" class="form-control form-control-sm" formControlName="confirmaSenha"/>
