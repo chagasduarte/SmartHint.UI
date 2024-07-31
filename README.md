@@ -71,5 +71,5 @@ Instruções sobre como contribuir para o projeto:
 
 Para dúvidas ou sugestões, entre em contato:
 
-- **Seu Nome**: seuemail@example.com
+- **Seu Nome**: chagasduarte.rdg@gmail.com
 - **LinkedIn**: [chagasduarte](https://linkedin.com/in/chagasduarte)
