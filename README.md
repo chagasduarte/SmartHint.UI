@@ -10,7 +10,6 @@ Teste para Desenvolvedor C# da Smarthint
 - [Instalação](#instalação)
 - [Uso](#uso)
 - [Contribuição](#contribuição)
-- [Licença](#licença)
 - [Contato](#contato)
 
 ## Visão Geral
@@ -18,9 +17,8 @@ Teste para Desenvolvedor C# da Smarthint
 Esse projeto, desenvolvido em angular 18, é uma parte de um sistema que possue mais 2 camadas: O banco de dados, que é uma instancia MySql que está sendo executada no RailWay, portando, dispensando configurações;
 A WebApi, desenvolvida em .net core 8, https://github.com/chagasduarte/SmartHint.WebApi.git que está nesse repositório; E o FrontEnd que se encontra nesse projeto.
 ## Funcionalidades
-
-- Lista de funcionalidades principais.
-- Adicione exemplos ou imagens que ilustrem o uso de cada funcionalidade, se possível.
+Possue apenas duas telas, de modo que é possível cadastrar e editar clientes, sendo esses do tipo Pessoa Física ou Pessoa Juridica.
+- Todas as funcionalidades solicitadas no arquivo
 
 ## Tecnologias Utilizadas
 
