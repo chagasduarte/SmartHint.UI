@@ -162,11 +162,11 @@ export class CadastroComponent implements OnInit{
           false: 
           Boolean(this.isento.value || false)
       }
-      if(cliente.id != 0){
-        this.atualizar(cliente);
+      if(cliente.id == 0){
+        this.gravar(cliente);
       }
       else{
-        this.gravar(cliente);
+        this.atualizar(cliente);
       }
       
       this.clientes();
