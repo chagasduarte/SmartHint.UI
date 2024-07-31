@@ -13,3 +13,17 @@ label {
 .senha input {
    width: 15rem;   
 }
+.card {
+    align-self: center;
+    width: 100%;
+}
+.container {
+    width: 100%;
+    text-align: center;
+  }
+
+.centered {
+width: 48rem;
+margin: 0 auto;
+padding: 20px;
+}

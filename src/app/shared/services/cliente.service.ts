@@ -24,4 +24,10 @@ export class ClienteService {
     postCliente(cliente: Cliente){
       return this.http.post(`${this.WebApi}/Cliente`, cliente);
     }
+    putCliente(cliente: Cliente){
+      return this.http.put(`${this.WebApi}/Cliente/${cliente.id}`, cliente)
+    }
+    getByName(name: string, page: number, size: number): Observable<ClientePage>{
+      return this.http.get<ClientePage>(`${this.WebApi}/Cliente/ByName?name=${name}&pageNumber=${page}&pageSize=${size}`);
+    }
 }

@@ -1,8 +1,8 @@
-<div class="card">
-  <div class="container">
+<div class="container">
+  <div class="card-container">
 
-    <form (submit)="cadastrarCliente()" [formGroup]="clientFormGroup" #formDir="ngForm">
-        <div class="mb-3">
+    <form (submit)="cadastrarCliente()" [formGroup]="clientFormGroup" #formDir="ngForm" class="centered">
+        <div class="d-flex mb-3">
             <b>Principal</b>
         </div>
         <section class="area-principal mb-3">
@@ -47,8 +47,8 @@
             </div>
             
         </section>
-        <div>
-            <b>Pessoal</b>
+        <div class="d-flex mb-3">
+            <b>Informações Pessoais</b>
         </div>
         <section class="area-pessoal">
             <div class="d-flex mb-2">
@@ -74,51 +74,52 @@
                             [mask]="mask_cpf_cnpj"
                             [placeholder]="mask_cpf_cnpj"/>
                         <div *ngIf="cpfCnpj.invalid && formDir.submitted">
-                            <p class="aviso">O campo CPF/CNPJ é obrigatório</p>
+                            <p class="aviso">O campo CPF/CNPJ é obrigatório </p>
                         </div>
                     </div>
                     
                 </div>
                 <div class="d-flex mb-2">
                     <label class="form-label me-2" for="inscricaoEstadual">Inscrição Estadual:</label>
+                    <input *ngIf="tipoPessoa.value == 1" type="checkbox" formControlName="isento" class="form-check-input me-2" (change)="isentar($event)">
                     <div>
                         <input id="inscricaoEstadual" 
                             type="text" 
                             class="form-control form-control-sm" 
                             formControlName="inscricaoEstadual"
                             mask="000.000.000-000"
-                            placeholder="000.000.000-000"/>
-                        <div *ngIf="inscricaoEstadual.invalid && formDir.submitted">
+                            [placeholder]="inscEstadualPlaceHolder"/>
+                        <div *ngIf="inscricaoEstadual.errors?.['confirmaInscricaoEstadual'] && formDir.submitted">
                             <p class="aviso">O campo Inscrição Estadual é obrigatório</p>
                         </div>
                     </div>
                 </div>  
             </div>
              
-            <div class="d-flex"  *ngIf="tipoPessoa.value == 1">
-                <div class="d-flex me-3">
-                    <label class="form-label me-2" for="sexo">Sexo:</label>
+            <div class="d-flex row"  *ngIf="tipoPessoa.value == 1">
+                <div class="d-flex me-3 col">
+                    <label class="form-label me-2" for="sexo">Genero:</label>
                     <div>
-                        <select id="sexo" 
+                        <select id="genero" 
                             class="form-select form-select-sm col" 
-                            formControlName="sexo">
+                            formControlName="genero">
                             <option value="1">Masculino</option>
                             <option value="2">Feminino</option>
                             <option value="3">Outros</option>
                         </select>
-                        <div *ngIf="sexo.invalid && formDir.submitted">
-                            <p class="aviso">O campo Sexo é obrigatório</p>
+                        <div *ngIf="genero.errors?.['generoObrigatorio'] && formDir.submitted">
+                            <p class="aviso">O campo Genero é obrigatório</p>
                         </div>
                     </div>
                        
                 </div>
-                <div class="d-flex">
+                <div class="d-flex col">
                     <label class="form-label me-2" for="dataNascimento">Data de Nascimento:</label>
                     <div class="col">
                         <div>
                             <input id="dataNascimento" type="date" class="form-control form-control-sm" formControlName="dataNascimento"/>
                         </div>
-                        <div *ngIf="dataNascimento.invalid && formDir.submitted">
+                        <div *ngIf="dataNascimento.errors?.['dataNascimentoObrigatoria'] && formDir.submitted">
                             <p class="aviso">O campo Data de Nascimento é obrigatório</p>
                         </div>
                     </div>
@@ -126,30 +127,44 @@
                 </div>   
             </div>
         </section>
-        <section class="senha d-flex">
-            <div class="d-flex mb-2 me-3">
+        <section class="senha d-flex row">
+            <div class="d-flex mb-2 me-3 col">
                 <label class="form-label me-2" for="senha">Senha:</label>
                 <div>
-                    <input id="senha" type="text" class="form-control form-control-sm" formControlName="senha" />
+                    <input id="senha" type="password" class="form-control form-control-sm" formControlName="senha" />
                     <div *ngIf="senha.invalid && formDir.submitted">
                         <p class="aviso">O campo senha é obrigatório</p>
+                    </div>
+                    <div *ngIf="senha?.errors?.['minlength']">
+                        <p class="aviso">Senha deve ter pelo menos 8 caracteres.</p>
+                    </div>
+                    <div *ngIf="senha?.errors?.['maxlength']">
+                        <p class="aviso">Senha deve ter no máximo 15 caracteres.</p>
                     </div>
                 </div>
                
             </div>   
-            <div class="d-flex mb-2">
+            <div class="d-flex mb-2 col">
                 <label class="form-label me-2" for="confirmacaoSenha">Confirmação de Senha:</label>
                 <div class="col">
-                    <input id="confirmacaoSenha" type="text" class="form-control form-control-sm" formControlName="confirmaSenha"/>
+                    <input id="confirmacaoSenha" type="password" class="form-control form-control-sm" formControlName="confirmaSenha"/>
                     <div *ngIf="confirmaSenha.errors?.['senhasNaoCorrespondem']">
                         <p class="aviso">As senhas não conferem</p>
                     </div>
                 </div>
             </div> 
         </section>
+        <div class="d-flex mb-3">
+           <b>Situação do Cliente</b> 
+        </div>
+        <section class="situacaoCliente mb-3">
+            <input type="checkbox" id="bloqueado" class="form-check-input me-2" formControlName="bloqueado">
+            <label for="bloqueado">Bloqueado</label>
+        </section>
         <button 
             class="btn btn-warning me-3" 
-            (click)="clientes()">Voltar</button>
+            (click)="clientes()">Voltar
+        </button>
         <button 
             class="btn btn-primary" 
             type="submit"
