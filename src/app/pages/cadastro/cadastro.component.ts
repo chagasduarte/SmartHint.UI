@@ -47,8 +47,8 @@ export class CadastroComponent implements OnInit{
     //pessoal
     tipoPessoa: new FormControl(TipoPessoa.Fisica, [Validators.required]),
     cpfCnpj: new FormControl("",[Validators.required, Validators.maxLength(14)]),
-    inscricaoEstadual: new FormControl({ value: "", disabled: this.isIsento }, [Validators.pattern(/^\d{3}\.\d{3}\.\d{3}-\d{3}$/)]),
-    isento: new FormControl(false),
+    inscricaoEstadual: new FormControl(""),
+    isento: new FormControl(false, [Validators.required]),
     genero: new FormControl(Genero.Feminino),
     dataNascimento: new FormControl(""),
 
@@ -138,6 +138,7 @@ export class CadastroComponent implements OnInit{
   }
 
   cadastrarCliente(){
+    console.log(this.clientFormGroup)
     if(this.clientFormGroup.valid || this.clientFormGroup.errors?.["pessoaJuridicaValida"]){
       const cliente : Cliente = {
         id: parseInt(this.cliente?.id?.toString() || "0"),
