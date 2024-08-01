@@ -138,7 +138,6 @@ export class CadastroComponent implements OnInit{
   }
 
   cadastrarCliente(){
-    console.log(this.clientFormGroup)
     if(this.clientFormGroup.valid || this.clientFormGroup.errors?.["pessoaJuridicaValida"]){
       const cliente : Cliente = {
         id: parseInt(this.cliente?.id?.toString() || "0"),
@@ -203,8 +202,6 @@ export class CadastroComponent implements OnInit{
   }
 
   setFormGroup(){
-    console.log("antes", this.clientFormGroup)
-    console.log()
     if(this.cliente.id){ 
       this.clientFormGroup.controls["nomeRazaoSocial"].setValue(this.cliente.nome);    
       this.clientFormGroup.controls["email"].setValue(this.cliente.email);              
@@ -218,8 +215,6 @@ export class CadastroComponent implements OnInit{
       this.clientFormGroup.controls["dataNascimento"].setValue(formatDate(this.cliente.dataNascimento, "yyyy-MM-dd", this.locale));    
       this.clientFormGroup.controls["bloqueado"].setValue(this.cliente.bloqueado);   
     }
-    console.log("depois", this.clientFormGroup)
-
   }
 
   gravar(cliente: Cliente){
