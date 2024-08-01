@@ -7,7 +7,7 @@ export function confirmaInscricaoEstadual(formGroup: FormGroup): ValidatorFn {
     const inscricaoEstadual = formGroup.get('inscricaoEstadual')?.value;
     const isento = formGroup.get("isento")?.value;
 
-    return ((tipoPessoa == TipoPessoa.Juridica || (tipoPessoa == TipoPessoa.Fisica && !isento)) && (!inscricaoEstadual || inscricaoEstadual.lengh != 12)) 
+    return ((tipoPessoa == TipoPessoa.Juridica || (tipoPessoa == TipoPessoa.Fisica && !isento)) && (!(inscricaoEstadual) || inscricaoEstadual.lengh != 12)) 
       ? { inscricaoEstadualObrigatoria: true }
       : null;
   };

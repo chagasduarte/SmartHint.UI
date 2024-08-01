@@ -89,6 +89,10 @@ export class CadastroComponent implements OnInit{
       }
     });
 
+    this.clientFormGroup.controls["inscricaoEstadual"].valueChanges.subscribe(value => { 
+      this.clientFormGroup.controls["inscricaoEstadual"].setErrors({inscricaoEstadualObrigatoria: false})
+    })
+
    
   }
 
@@ -162,12 +166,12 @@ export class CadastroComponent implements OnInit{
           false: 
           Boolean(this.isento.value || false)
       }
-      if(cliente.id == 0){
-        this.gravar(cliente);
-      }
-      else{
-        this.atualizar(cliente);
-      }
+      // if(cliente.id == 0){
+      //   this.gravar(cliente);
+      // }
+      // else{
+      //   this.atualizar(cliente);
+      // }
       
     }
     
