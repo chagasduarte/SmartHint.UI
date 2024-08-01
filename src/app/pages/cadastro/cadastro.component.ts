@@ -203,17 +203,23 @@ export class CadastroComponent implements OnInit{
   }
 
   setFormGroup(){
-    this.clientFormGroup.controls["nomeRazaoSocial"].setValue(this.cliente.nome);    
-    this.clientFormGroup.controls["email"].setValue(this.cliente.email);              
-    this.clientFormGroup.controls["telefone"].setValue(this.cliente.telefone);          
-    
-    this.clientFormGroup.controls["tipoPessoa"].setValue(this.cliente.tipoPessoa);        
-    this.clientFormGroup.controls["cpfCnpj"].setValue(this.cliente.cpfCnpj);           
-    this.clientFormGroup.controls["inscricaoEstadual"].setValue(this.cliente.inscricaoEstadual);  
-    this.clientFormGroup.controls["isento"].setValue(this.cliente.isento);            
-    this.clientFormGroup.controls["genero"].setValue(this.cliente.genero);            
-    this.clientFormGroup.controls["dataNascimento"].setValue(formatDate(this.cliente.dataNascimento, "yyyy-MM-dd", this.locale));    
-    this.clientFormGroup.controls["bloqueado"].setValue(this.cliente.bloqueado);   
+    console.log("antes", this.clientFormGroup)
+    console.log()
+    if(this.cliente.id){ 
+      this.clientFormGroup.controls["nomeRazaoSocial"].setValue(this.cliente.nome);    
+      this.clientFormGroup.controls["email"].setValue(this.cliente.email);              
+      this.clientFormGroup.controls["telefone"].setValue(this.cliente.telefone);          
+      
+      this.clientFormGroup.controls["tipoPessoa"].setValue(this.cliente.tipoPessoa);        
+      this.clientFormGroup.controls["cpfCnpj"].setValue(this.cliente.cpfCnpj);           
+      this.clientFormGroup.controls["inscricaoEstadual"].setValue(this.cliente.inscricaoEstadual);  
+      this.clientFormGroup.controls["isento"].setValue(this.cliente.isento);            
+      this.clientFormGroup.controls["genero"].setValue(this.cliente.genero);            
+      this.clientFormGroup.controls["dataNascimento"].setValue(formatDate(this.cliente.dataNascimento, "yyyy-MM-dd", this.locale));    
+      this.clientFormGroup.controls["bloqueado"].setValue(this.cliente.bloqueado);   
+    }
+    console.log("depois", this.clientFormGroup)
+
   }
 
   gravar(cliente: Cliente){
