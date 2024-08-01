@@ -89,9 +89,7 @@
                             formControlName="inscricaoEstadual"
                             mask="000.000.000-000"
                             [placeholder]="inscEstadualPlaceHolder"/>
-                        <div *ngIf="(inscricaoEstadual.errors?.['confirmaInscricaoEstadual'] 
-                                    || inscricaoEstadual.errors?.['inscricaoEstadualObrigatoria'])
-                                   && formDir.submitted">
+                        <div *ngIf="inscricaoEstadual.errors?.['inscricaoEstadualObrigatoria'] && formDir.submitted">
                             <p class="aviso">O campo Inscrição Estadual é obrigatório</p>
                         </div>
                     </div>
