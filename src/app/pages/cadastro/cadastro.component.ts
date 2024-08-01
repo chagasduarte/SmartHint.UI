@@ -169,7 +169,6 @@ export class CadastroComponent implements OnInit{
         this.atualizar(cliente);
       }
       
-      this.clientes();
     }
     
   }
@@ -221,6 +220,7 @@ export class CadastroComponent implements OnInit{
     this.clienteService.postCliente(cliente).subscribe({
       next: (success: any) => {
         this.toastService.success("Sucesso", `Cliente cadastrado: ${success.id}`, {timeOut: 5000, closeButton: true})
+        this.clientes();
       },
       error: (err: any) =>{
         if(err.status == 400){
@@ -236,6 +236,7 @@ export class CadastroComponent implements OnInit{
     this.clienteService.putCliente(cliente).subscribe({
       next: (success: any) => {
         this.toastService.success("Sucesso", `Cliente Atualizado: ${success.id}`, {timeOut: 5000, closeButton: true})
+        this.clientes();
       },
       error: (err: any) =>{
         if(err.status == 400){
