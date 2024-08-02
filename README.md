@@ -50,7 +50,7 @@ Passo a passo para configurar o projeto localmente:
     ```
 4. Inicie o servidor de desenvolvimento:
     ```bash
-    ng serve
+    npm start
     ```
 5. Abra seu navegador e vá para `http://localhost:4200`.
 
